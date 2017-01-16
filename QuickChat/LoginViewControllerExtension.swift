@@ -43,6 +43,8 @@ extension LoginViewController{
                 let newNavigationController = UINavigationController(rootViewController: controller)
                 self.present(newNavigationController, animated: true, completion: nil)
                 
+                // change the navigationbar background color
+                newNavigationController.navigationBar.barTintColor = Tool.share.colorChange("#7796e8")
             })
         }else{
             // show alert by using GSmessages

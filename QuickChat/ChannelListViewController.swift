@@ -9,11 +9,24 @@
 import UIKit
 
 class ChannelListViewController: UIViewController {
-
+    
+    @IBOutlet weak var channelListTableView: UITableView!
+    internal var channel:[Channel] = []
+    var newChannelTextField:UITextField?
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        //test for tableview
+        let channel1 = Channel(name: "gogogo", id: "ch1")
+        let channel2 = Channel(name: "notototo", id: "ch2")
+        let channel3 = Channel(name: "jijiji", id: "ch3")
+        
+        channel.append(channel1)
+        channel.append(channel2)
+        channel.append(channel3)
+        
+        
+        initialViewDidLoad()
     }
 
     override func didReceiveMemoryWarning() {
