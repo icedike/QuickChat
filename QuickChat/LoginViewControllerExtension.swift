@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import GSMessages
 
 extension LoginViewController{
     
@@ -27,7 +29,25 @@ extension LoginViewController{
         NotificationCenter.default.addObserver(self, selector: #selector(self.backView), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     func login(){
-        
+        if nameTextField.text != "" {
+            print("start to login")
+            //login firebase
+            FIRAuth.auth()?.signInAnonymously(completion: {
+                (user, error) in
+                if let error = error {
+                    print("error:\(error.localizedDescription)")
+                    return
+                }
+                
+                let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChannelListViewController") as! ChannelListViewController
+                let newNavigationController = UINavigationController(rootViewController: controller)
+                self.present(newNavigationController, animated: true, completion: nil)
+                
+            })
+        }else{
+            // show alert by using GSmessages
+            self.showMessage("Please enter your name", type: .error, options: [.animation(.slide), .animationDuration(0.3), .height(32),.hideOnTap(true)])
+        }
     }
     
     func moveView(notification:Notification){

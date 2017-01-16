@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>GSMessages.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,7 +42,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7731A5B20CA79F4C5BF9889DD4517E2E</key>
+		<key>7B6D33001D96717BA73DE8A5E2D32722</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>80A1AAD476BC6D0D87976DE91984E49D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

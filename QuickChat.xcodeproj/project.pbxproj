@@ -14,6 +14,7 @@
 		4CD1DF9D1E2CA7EE004624D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DF9C1E2CA7EE004624D0 /* GoogleService-Info.plist */; };
 		4CD1DFA01E2CB73B004624D0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DF9F1E2CB73B004624D0 /* LoginViewController.swift */; };
 		4CD1DFA21E2CB7B3004624D0 /* LoginViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DFA11E2CB7B3004624D0 /* LoginViewControllerExtension.swift */; };
+		4CD1DFA71E2CC71B004624D0 /* ChannelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DFA61E2CC71B004624D0 /* ChannelListViewController.swift */; };
 		FBC682E0E23623E4E554D78A /* Pods_QuickChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C44240CBF63047A662C2FF /* Pods_QuickChat.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		4CD1DF9E1E2CA832004624D0 /* QuickChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuickChat.entitlements; sourceTree = "<group>"; };
 		4CD1DF9F1E2CB73B004624D0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4CD1DFA11E2CB7B3004624D0 /* LoginViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerExtension.swift; sourceTree = "<group>"; };
+		4CD1DFA61E2CC71B004624D0 /* ChannelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelListViewController.swift; sourceTree = "<group>"; };
 		D1D24CA7D9F23B479AC5B5C3 /* Pods-QuickChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuickChat/Pods-QuickChat.debug.xcconfig"; sourceTree = "<group>"; };
 		F51858E0B41C2522B0AD54CB /* Pods-QuickChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuickChat/Pods-QuickChat.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				4CD1DF9F1E2CB73B004624D0 /* LoginViewController.swift */,
+				4CD1DFA61E2CC71B004624D0 /* ChannelListViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			files = (
 				4CD1DFA21E2CB7B3004624D0 /* LoginViewControllerExtension.swift in Sources */,
 				4CD1DFA01E2CB73B004624D0 /* LoginViewController.swift in Sources */,
+				4CD1DFA71E2CC71B004624D0 /* ChannelListViewController.swift in Sources */,
 				4CD1DF8B1E2CA435004624D0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
