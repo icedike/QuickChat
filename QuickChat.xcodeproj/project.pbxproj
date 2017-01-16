@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		4CD1DF8B1E2CA435004624D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DF8A1E2CA435004624D0 /* AppDelegate.swift */; };
-		4CD1DF8D1E2CA435004624D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DF8C1E2CA435004624D0 /* ViewController.swift */; };
 		4CD1DF901E2CA435004624D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DF8E1E2CA435004624D0 /* Main.storyboard */; };
 		4CD1DF921E2CA435004624D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DF911E2CA435004624D0 /* Assets.xcassets */; };
 		4CD1DF951E2CA435004624D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DF931E2CA435004624D0 /* LaunchScreen.storyboard */; };
 		4CD1DF9D1E2CA7EE004624D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DF9C1E2CA7EE004624D0 /* GoogleService-Info.plist */; };
+		4CD1DFA01E2CB73B004624D0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DF9F1E2CB73B004624D0 /* LoginViewController.swift */; };
+		4CD1DFA21E2CB7B3004624D0 /* LoginViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DFA11E2CB7B3004624D0 /* LoginViewControllerExtension.swift */; };
 		FBC682E0E23623E4E554D78A /* Pods_QuickChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C44240CBF63047A662C2FF /* Pods_QuickChat.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,13 +21,14 @@
 		40C44240CBF63047A662C2FF /* Pods_QuickChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD1DF871E2CA435004624D0 /* QuickChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD1DF8A1E2CA435004624D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4CD1DF8C1E2CA435004624D0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4CD1DF8F1E2CA435004624D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4CD1DF911E2CA435004624D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CD1DF941E2CA435004624D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4CD1DF961E2CA435004624D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CD1DF9C1E2CA7EE004624D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CD1DF9E1E2CA832004624D0 /* QuickChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuickChat.entitlements; sourceTree = "<group>"; };
+		4CD1DF9F1E2CB73B004624D0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4CD1DFA11E2CB7B3004624D0 /* LoginViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerExtension.swift; sourceTree = "<group>"; };
 		D1D24CA7D9F23B479AC5B5C3 /* Pods-QuickChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuickChat/Pods-QuickChat.debug.xcconfig"; sourceTree = "<group>"; };
 		F51858E0B41C2522B0AD54CB /* Pods-QuickChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuickChat/Pods-QuickChat.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,15 +67,32 @@
 			isa = PBXGroup;
 			children = (
 				4CD1DF9E1E2CA832004624D0 /* QuickChat.entitlements */,
-				4CD1DF8A1E2CA435004624D0 /* AppDelegate.swift */,
-				4CD1DF8C1E2CA435004624D0 /* ViewController.swift */,
+				4CD1DFA51E2CB819004624D0 /* Controller */,
+				4CD1DFA41E2CB80B004624D0 /* Extension */,
 				4CD1DF8E1E2CA435004624D0 /* Main.storyboard */,
+				4CD1DF8A1E2CA435004624D0 /* AppDelegate.swift */,
 				4CD1DF911E2CA435004624D0 /* Assets.xcassets */,
 				4CD1DF931E2CA435004624D0 /* LaunchScreen.storyboard */,
 				4CD1DF961E2CA435004624D0 /* Info.plist */,
 				4CD1DF9C1E2CA7EE004624D0 /* GoogleService-Info.plist */,
 			);
 			path = QuickChat;
+			sourceTree = "<group>";
+		};
+		4CD1DFA41E2CB80B004624D0 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4CD1DFA11E2CB7B3004624D0 /* LoginViewControllerExtension.swift */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
+		4CD1DFA51E2CB819004624D0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4CD1DF9F1E2CB73B004624D0 /* LoginViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		BFFFADAF745D05392554E4F8 /* Pods */ = {
@@ -223,7 +242,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CD1DF8D1E2CA435004624D0 /* ViewController.swift in Sources */,
+				4CD1DFA21E2CB7B3004624D0 /* LoginViewControllerExtension.swift in Sources */,
+				4CD1DFA01E2CB73B004624D0 /* LoginViewController.swift in Sources */,
 				4CD1DF8B1E2CA435004624D0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
