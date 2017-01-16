@@ -27,6 +27,9 @@
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CR0-5j-Xpp">
                         <rect key="frame" x="264" y="6" width="46" height="30"/>
                         <state key="normal" title="Create"/>
+                        <connections>
+                            <action selector="createNewChannelBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KbX-l1-Pag"/>
+                        </connections>
                     </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

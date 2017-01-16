@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ChannelListViewController: UIViewController {
     
     @IBOutlet weak var channelListTableView: UITableView!
     internal var channel:[Channel] = []
     var newChannelTextField:UITextField?
+    
+    var cloudDatabaseManger:CloudDatabaseAble = FireDatabaseAPI.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,15 +38,5 @@ class ChannelListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

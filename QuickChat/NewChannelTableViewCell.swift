@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol NewChannelTableViewCellDelegate:NSObjectProtocol{
+    func createNewChannelAction()
+}
+
 class NewChannelTableViewCell: UITableViewCell {
 
     @IBOutlet weak var newChannelNameTextField: UITextField!
+    weak var delegate: NewChannelTableViewCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,6 +25,9 @@ class NewChannelTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    @IBAction func createNewChannelBtnAction(_ sender: UIButton) {
+        delegate?.createNewChannelAction()
     }
     
 }

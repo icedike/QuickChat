@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import GSMessages
 
 extension ChannelListViewController{
 
@@ -44,6 +46,7 @@ extension ChannelListViewController:UITableViewDataSource{
         if indexPath.section == Section.createNewChannelSection.rawValue {
             let newChannelCell = cell as! NewChannelTableViewCell
             newChannelTextField = newChannelCell.newChannelNameTextField
+            newChannelCell.delegate = self
         }else{
             let existingChannel = cell as! ExistingChannelTableViewCell
             existingChannel.channelNameLabel.text = channel[indexPath.row].name
@@ -52,4 +55,14 @@ extension ChannelListViewController:UITableViewDataSource{
         return cell
     }
     
+}
+
+extension ChannelListViewController:NewChannelTableViewCellDelegate{
+    func createNewChannelAction(){
+        if let name = newChannelTextField?.text, !name.isEmpty {
+            cloudDatabaseManger.wirteNewChannelToCloud(name: name)
+        }else{
+            self.showMessage("Please enter the name of new channel.", type: .error, options: [.animation(.slide), .animationDuration(0.3), .height(32),.hideOnTap(true)])
+        }
+    }
 }

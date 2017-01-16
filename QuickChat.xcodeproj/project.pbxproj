@@ -23,6 +23,7 @@
 		4CD1DFB31E2CDB24004624D0 /* NewChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DFB11E2CDB24004624D0 /* NewChannelTableViewCell.xib */; };
 		4CD1DFB61E2CDB55004624D0 /* ExistingChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DFB41E2CDB55004624D0 /* ExistingChannelTableViewCell.swift */; };
 		4CD1DFB71E2CDB55004624D0 /* ExistingChannelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DFB51E2CDB55004624D0 /* ExistingChannelTableViewCell.xib */; };
+		4CD1DFBB1E2D383C004624D0 /* FireDataBaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DFBA1E2D383C004624D0 /* FireDataBaseAPI.swift */; };
 		FBC682E0E23623E4E554D78A /* Pods_QuickChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C44240CBF63047A662C2FF /* Pods_QuickChat.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		4CD1DFB11E2CDB24004624D0 /* NewChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewChannelTableViewCell.xib; sourceTree = "<group>"; };
 		4CD1DFB41E2CDB55004624D0 /* ExistingChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExistingChannelTableViewCell.swift; sourceTree = "<group>"; };
 		4CD1DFB51E2CDB55004624D0 /* ExistingChannelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExistingChannelTableViewCell.xib; sourceTree = "<group>"; };
+		4CD1DFBA1E2D383C004624D0 /* FireDataBaseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireDataBaseAPI.swift; sourceTree = "<group>"; };
 		D1D24CA7D9F23B479AC5B5C3 /* Pods-QuickChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuickChat/Pods-QuickChat.debug.xcconfig"; sourceTree = "<group>"; };
 		F51858E0B41C2522B0AD54CB /* Pods-QuickChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuickChat/Pods-QuickChat.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,22 +86,16 @@
 		4CD1DF891E2CA435004624D0 /* QuickChat */ = {
 			isa = PBXGroup;
 			children = (
-				4CD1DF9E1E2CA832004624D0 /* QuickChat.entitlements */,
 				4CD1DFA51E2CB819004624D0 /* Controller */,
 				4CD1DFA41E2CB80B004624D0 /* Extension */,
+				4CD1DFB81E2D37CD004624D0 /* Xib */,
+				4CD1DFB91E2D37F0004624D0 /* Share */,
 				4CD1DF8E1E2CA435004624D0 /* Main.storyboard */,
-				4CD1DF8A1E2CA435004624D0 /* AppDelegate.swift */,
-				4CD1DF911E2CA435004624D0 /* Assets.xcassets */,
 				4CD1DF931E2CA435004624D0 /* LaunchScreen.storyboard */,
+				4CD1DF9E1E2CA832004624D0 /* QuickChat.entitlements */,
+				4CD1DF911E2CA435004624D0 /* Assets.xcassets */,
 				4CD1DF961E2CA435004624D0 /* Info.plist */,
 				4CD1DF9C1E2CA7EE004624D0 /* GoogleService-Info.plist */,
-				4CD1DFA81E2CCA9A004624D0 /* Share.swift */,
-				4CD1DFAA1E2CCB24004624D0 /* Tool.swift */,
-				4CD1DFAC1E2CD3FC004624D0 /* Channel.swift */,
-				4CD1DFB01E2CDB24004624D0 /* NewChannelTableViewCell.swift */,
-				4CD1DFB11E2CDB24004624D0 /* NewChannelTableViewCell.xib */,
-				4CD1DFB41E2CDB55004624D0 /* ExistingChannelTableViewCell.swift */,
-				4CD1DFB51E2CDB55004624D0 /* ExistingChannelTableViewCell.xib */,
 			);
 			path = QuickChat;
 			sourceTree = "<group>";
@@ -120,6 +116,29 @@
 				4CD1DFA61E2CC71B004624D0 /* ChannelListViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		4CD1DFB81E2D37CD004624D0 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				4CD1DFB01E2CDB24004624D0 /* NewChannelTableViewCell.swift */,
+				4CD1DFB11E2CDB24004624D0 /* NewChannelTableViewCell.xib */,
+				4CD1DFB41E2CDB55004624D0 /* ExistingChannelTableViewCell.swift */,
+				4CD1DFB51E2CDB55004624D0 /* ExistingChannelTableViewCell.xib */,
+			);
+			name = Xib;
+			sourceTree = "<group>";
+		};
+		4CD1DFB91E2D37F0004624D0 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				4CD1DFA81E2CCA9A004624D0 /* Share.swift */,
+				4CD1DFAA1E2CCB24004624D0 /* Tool.swift */,
+				4CD1DFAC1E2CD3FC004624D0 /* Channel.swift */,
+				4CD1DF8A1E2CA435004624D0 /* AppDelegate.swift */,
+				4CD1DFBA1E2D383C004624D0 /* FireDataBaseAPI.swift */,
+			);
+			name = Share;
 			sourceTree = "<group>";
 		};
 		BFFFADAF745D05392554E4F8 /* Pods */ = {
@@ -277,6 +296,7 @@
 				4CD1DFA01E2CB73B004624D0 /* LoginViewController.swift in Sources */,
 				4CD1DFAF1E2CD4D9004624D0 /* ChannelListViewControllerExtension.swift in Sources */,
 				4CD1DFAB1E2CCB24004624D0 /* Tool.swift in Sources */,
+				4CD1DFBB1E2D383C004624D0 /* FireDataBaseAPI.swift in Sources */,
 				4CD1DFB21E2CDB24004624D0 /* NewChannelTableViewCell.swift in Sources */,
 				4CD1DFA71E2CC71B004624D0 /* ChannelListViewController.swift in Sources */,
 				4CD1DFB61E2CDB55004624D0 /* ExistingChannelTableViewCell.swift in Sources */,
