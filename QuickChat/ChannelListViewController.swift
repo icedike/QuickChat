@@ -15,6 +15,7 @@ class ChannelListViewController: UIViewController {
     internal var channel:[Channel] = []
     var newChannelTextField:UITextField?
     
+    //DI injection -> for testing 
     var cloudDatabaseManger:CloudDatabaseAble = FireDatabaseAPI.default
     
     override func viewDidLoad() {

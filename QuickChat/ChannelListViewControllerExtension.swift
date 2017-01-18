@@ -26,7 +26,7 @@ extension ChannelListViewController:UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
+    // only need one cell for create new channel
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let currentSection:Section = Section(rawValue: section){
             switch currentSection{
@@ -46,6 +46,7 @@ extension ChannelListViewController:UITableViewDataSource{
         if indexPath.section == Section.createNewChannelSection.rawValue {
             let newChannelCell = cell as! NewChannelTableViewCell
             newChannelTextField = newChannelCell.newChannelNameTextField
+            //delegate for button touch action
             newChannelCell.delegate = self
         }else{
             let existingChannel = cell as! ExistingChannelTableViewCell

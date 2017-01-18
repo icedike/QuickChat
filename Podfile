@@ -10,6 +10,5 @@ target 'QuickChat' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'JSQMessagesViewController'
-  
   pod 'GSMessages'
 end
