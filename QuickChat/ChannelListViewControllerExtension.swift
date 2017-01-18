@@ -18,6 +18,15 @@ extension ChannelListViewController{
         //register xib
         channelListTableView.register(UINib(nibName: "NewChannelTableViewCell", bundle: nil), forCellReuseIdentifier: "NewChannel")
         channelListTableView.register(UINib(nibName: "ExistingChannelTableViewCell", bundle: nil), forCellReuseIdentifier: "ExistingChannel")
+        
+        //read exist channel from cloud database
+        cloudDatabaseManger.readFromCloud {
+        (channelData) in
+            self.channel.append(channelData)
+            DispatchQueue.main.async {
+                self.channelListTableView.reloadData()
+            }
+        }
     }
 }
 

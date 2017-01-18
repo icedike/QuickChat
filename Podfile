@@ -11,4 +11,5 @@ target 'QuickChat' do
   pod 'Firebase/Database'
   pod 'JSQMessagesViewController'
   pod 'GSMessages'
+  pod 'SwiftyJSON'
 end

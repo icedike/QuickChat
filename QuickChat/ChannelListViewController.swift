@@ -21,19 +21,15 @@ class ChannelListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //test for tableview
-        let channel1 = Channel(name: "gogogo", id: "ch1")
-        let channel2 = Channel(name: "notototo", id: "ch2")
-        let channel3 = Channel(name: "jijiji", id: "ch3")
-        
-        channel.append(channel1)
-        channel.append(channel2)
-        channel.append(channel3)
-        
-        
+        //call function to initial all setting
         initialViewDidLoad()
     }
-
+    
+    deinit {
+        // remove the observe 
+       cloudDatabaseManger.removeObserve()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
