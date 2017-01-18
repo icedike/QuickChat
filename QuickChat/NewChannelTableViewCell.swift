@@ -27,7 +27,10 @@ class NewChannelTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func createNewChannelBtnAction(_ sender: UIButton) {
+        // create a new channel 
         delegate?.createNewChannelAction()
+        // clearn textField after creating a new channel
+        newChannelNameTextField.text = ""
     }
     
 }

@@ -13,7 +13,9 @@ import GSMessages
 extension ChannelListViewController{
 
     func initialViewDidLoad(){
+        // tableView's deledate & dataSource
         channelListTableView.dataSource = self
+        channelListTableView.delegate = self
         
         //register xib
         channelListTableView.register(UINib(nibName: "NewChannelTableViewCell", bundle: nil), forCellReuseIdentifier: "NewChannel")
@@ -23,6 +25,7 @@ extension ChannelListViewController{
         cloudDatabaseManger.readFromCloud {
         (channelData) in
             self.channel.append(channelData)
+            print("cannel count\(self.channel.count)")
             DispatchQueue.main.async {
                 self.channelListTableView.reloadData()
             }
@@ -30,7 +33,7 @@ extension ChannelListViewController{
     }
 }
 
-extension ChannelListViewController:UITableViewDataSource{
+extension ChannelListViewController:UITableViewDataSource, UITableViewDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -65,6 +68,14 @@ extension ChannelListViewController:UITableViewDataSource{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //push to ChatViewController
+        if Section.currentChannelsSection.rawValue == indexPath.section {
+            let view = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+            view.channel = channel[indexPath.row]
+            navigationController?.pushViewController(view, animated: true)
+        }
+    }
 }
 
 extension ChannelListViewController:NewChannelTableViewCellDelegate{

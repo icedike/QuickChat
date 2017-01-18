@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4CA827C71E2F9496006E03C6 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA827C61E2F9496006E03C6 /* ChatViewController.swift */; };
 		4CD1DF8B1E2CA435004624D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DF8A1E2CA435004624D0 /* AppDelegate.swift */; };
 		4CD1DF901E2CA435004624D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DF8E1E2CA435004624D0 /* Main.storyboard */; };
 		4CD1DF921E2CA435004624D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DF911E2CA435004624D0 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		40C44240CBF63047A662C2FF /* Pods_QuickChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CA827C61E2F9496006E03C6 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		4CD1DF871E2CA435004624D0 /* QuickChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD1DF8A1E2CA435004624D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CD1DF8F1E2CA435004624D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			children = (
 				4CD1DF9F1E2CB73B004624D0 /* LoginViewController.swift */,
 				4CD1DFA61E2CC71B004624D0 /* ChannelListViewController.swift */,
+				4CA827C61E2F9496006E03C6 /* ChatViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				4CD1DFB21E2CDB24004624D0 /* NewChannelTableViewCell.swift in Sources */,
 				4CD1DFA71E2CC71B004624D0 /* ChannelListViewController.swift in Sources */,
 				4CD1DFB61E2CDB55004624D0 /* ExistingChannelTableViewCell.swift in Sources */,
+				4CA827C71E2F9496006E03C6 /* ChatViewController.swift in Sources */,
 				4CD1DF8B1E2CA435004624D0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

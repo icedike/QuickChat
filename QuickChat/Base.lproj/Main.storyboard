@@ -133,5 +133,23 @@
             </objects>
             <point key="canvasLocation" x="1103" y="139"/>
         </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="lls-Ha-NUx">
+            <objects>
+                <viewController storyboardIdentifier="ChatViewController" id="Nmr-mZ-xwv" customClass="ChatViewController" customModule="QuickChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="anP-js-3Xd"/>
+                        <viewControllerLayoutGuide type="bottom" id="DyR-fI-Q41"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fq7-fZ-iOK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vQJ-GQ-dxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1977" y="142"/>
+        </scene>
     </scenes>
 </document>

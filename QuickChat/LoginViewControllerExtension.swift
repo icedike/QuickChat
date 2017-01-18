@@ -22,12 +22,20 @@ extension LoginViewController{
         
         //set textfield delegate
         nameTextField.delegate = self
-        
+    }
+    
+    func initialViewWillAppear(){
         //add observe to know when keyboaed show up or hide
         NotificationCenter.default.addObserver(self, selector: #selector(self.moveView), name: Notification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.backView), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
+    
+    func removeKeyboardObserver(){
+        //remove observe when present another view
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
     func login(){
         if nameTextField.text != "" {
             print("start to login")
@@ -42,7 +50,7 @@ extension LoginViewController{
                 let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChannelListViewController") as! ChannelListViewController
                 let newNavigationController = UINavigationController(rootViewController: controller)
                 self.present(newNavigationController, animated: true, completion: nil)
-                
+                self.removeKeyboardObserver()
                 // change the navigationbar background color
                 newNavigationController.navigationBar.barTintColor = Tool.share.colorChange("#7796e8")
             })

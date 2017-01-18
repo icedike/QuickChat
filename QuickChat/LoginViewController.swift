@@ -16,6 +16,11 @@ class LoginViewController: UIViewController {
         
         initialViewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        initialViewWillAppear()
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
