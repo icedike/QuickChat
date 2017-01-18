@@ -26,6 +26,7 @@ extension LoginViewController{
     
     func initialViewWillAppear(){
         //add observe to know when keyboaed show up or hide
+        print("add observe")
         NotificationCenter.default.addObserver(self, selector: #selector(self.moveView), name: Notification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.backView), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -33,7 +34,9 @@ extension LoginViewController{
     
     func removeKeyboardObserver(){
         //remove observe when present another view
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+        print("remove observe")
     }
     
     func login(){
@@ -66,13 +69,20 @@ extension LoginViewController{
         let keyboardFram = userInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue
         let keyboardRect = keyboardFram.cgRectValue
         let keyboardHeight = keyboardRect.height*(-1)
-        UIView.animate(withDuration: 0.3) { 
-            self.view.transform = CGAffineTransform(translationX: 0, y: keyboardHeight)
-        }
+        let moveTransform = CGAffineTransform(translationX: 0, y: keyboardHeight/2)
         
+//        UIView.animate(withDuration: 0.3) { 
+//            self.view.transform = CGAffineTransform(translationX: 0, y: keyboardHeight)
+//        }
+        
+        //combine two animation ->because warning would also move up
+        UIView.animate(withDuration: 0.3, animations:{
+            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0 - (keyboardRect.height/self.view.frame.height)).concatenating(moveTransform)
+        })
     }
     
     func backView(){
+        print("back view")
         UIView.animate(withDuration: 0.3) { 
             self.view.transform = CGAffineTransform.identity
         }

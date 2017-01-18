@@ -30,6 +30,7 @@ extension ChannelListViewController{
                 self.channelListTableView.reloadData()
             }
         }
+        
     }
 }
 
@@ -58,8 +59,9 @@ extension ChannelListViewController:UITableViewDataSource, UITableViewDelegate{
         if indexPath.section == Section.createNewChannelSection.rawValue {
             let newChannelCell = cell as! NewChannelTableViewCell
             newChannelTextField = newChannelCell.newChannelNameTextField
-            //delegate for button touch action
+            //delegate for tableView button touch action
             newChannelCell.delegate = self
+            newChannelCell.newChannelNameTextField.delegate = self
         }else{
             let existingChannel = cell as! ExistingChannelTableViewCell
             existingChannel.channelNameLabel.text = channel[indexPath.row].name
@@ -69,6 +71,9 @@ extension ChannelListViewController:UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.endEditing(true)
+        
         //push to ChatViewController
         if Section.currentChannelsSection.rawValue == indexPath.section {
             let view = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
@@ -85,5 +90,12 @@ extension ChannelListViewController:NewChannelTableViewCellDelegate{
         }else{
             self.showMessage("Please enter the name of new channel.", type: .error, options: [.animation(.slide), .animationDuration(0.3), .height(32),.hideOnTap(true)])
         }
+    }
+}
+
+extension ChannelListViewController:UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
