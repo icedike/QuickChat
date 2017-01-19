@@ -12,16 +12,34 @@ import Firebase
 
 final class ChatViewController: JSQMessagesViewController {
 
+    //set navigation title when setting the channel
     var channel:Channel?{
         didSet{
-            title = channel?.name
+            self.title = self.channel?.name
         }
     }
     
+    //store message array
     var message:[JSQMessage] = []
+    
+    lazy var outgoingBubbleImageView: JSQMessagesBubbleImage = {
+        let bubbleImageFactory = JSQMessagesBubbleImageFactory()
+        return bubbleImageFactory!.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
+    }()
+    
+    lazy var incomingBubbleImageView: JSQMessagesBubbleImage = {
+        let bubbleImageFactory = JSQMessagesBubbleImageFactory()
+        return bubbleImageFactory!.incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        //get sender's unique id by get login uid
         self.senderId = FIRAuth.auth()?.currentUser?.uid
+        
+        //remove avatarview
+        collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
+        collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         // Do any additional setup after loading the view.
     }
 
