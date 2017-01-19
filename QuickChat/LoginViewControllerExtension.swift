@@ -56,6 +56,9 @@ extension LoginViewController{
                 self.removeKeyboardObserver()
                 // change the navigationbar background color
                 newNavigationController.navigationBar.barTintColor = Tool.share.colorChange("#7796e8")
+                //save user's displayName
+                UserDefaults.standard.set(self.nameTextField.text, forKey: "displayName")
+                UserDefaults.standard.synchronize()
             })
         }else{
             // show alert by using GSmessages

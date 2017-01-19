@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4CA827C71E2F9496006E03C6 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA827C61E2F9496006E03C6 /* ChatViewController.swift */; };
+		4CA827D81E31143E006E03C6 /* ChatViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA827D71E31143E006E03C6 /* ChatViewControllerExtension.swift */; };
 		4CD1DF8B1E2CA435004624D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1DF8A1E2CA435004624D0 /* AppDelegate.swift */; };
 		4CD1DF901E2CA435004624D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DF8E1E2CA435004624D0 /* Main.storyboard */; };
 		4CD1DF921E2CA435004624D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1DF911E2CA435004624D0 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		40C44240CBF63047A662C2FF /* Pods_QuickChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CA827C61E2F9496006E03C6 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		4CA827D71E31143E006E03C6 /* ChatViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewControllerExtension.swift; sourceTree = "<group>"; };
 		4CD1DF871E2CA435004624D0 /* QuickChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD1DF8A1E2CA435004624D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CD1DF8F1E2CA435004624D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			children = (
 				4CD1DFA11E2CB7B3004624D0 /* LoginViewControllerExtension.swift */,
 				4CD1DFAE1E2CD4D9004624D0 /* ChannelListViewControllerExtension.swift */,
+				4CA827D71E31143E006E03C6 /* ChatViewControllerExtension.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				4CD1DFA91E2CCA9A004624D0 /* Share.swift in Sources */,
 				4CD1DFA21E2CB7B3004624D0 /* LoginViewControllerExtension.swift in Sources */,
 				4CD1DFA01E2CB73B004624D0 /* LoginViewController.swift in Sources */,
+				4CA827D81E31143E006E03C6 /* ChatViewControllerExtension.swift in Sources */,
 				4CD1DFAF1E2CD4D9004624D0 /* ChannelListViewControllerExtension.swift in Sources */,
 				4CD1DFAB1E2CCB24004624D0 /* Tool.swift in Sources */,
 				4CD1DFBB1E2D383C004624D0 /* FireDataBaseAPI.swift in Sources */,

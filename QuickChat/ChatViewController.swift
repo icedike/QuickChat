@@ -7,13 +7,21 @@
 //
 
 import UIKit
+import JSQMessagesViewController
+import Firebase
 
-class ChatViewController: UIViewController {
+final class ChatViewController: JSQMessagesViewController {
 
-    var channel:Channel!
+    var channel:Channel?{
+        didSet{
+            title = channel?.name
+        }
+    }
+    
+    var message:[JSQMessage] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.senderId = FIRAuth.auth()?.currentUser?.uid
         // Do any additional setup after loading the view.
     }
 

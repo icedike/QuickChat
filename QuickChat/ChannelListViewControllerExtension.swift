@@ -71,13 +71,18 @@ extension ChannelListViewController:UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        //close the keyboard
         tableView.endEditing(true)
         
         //push to ChatViewController
         if Section.currentChannelsSection.rawValue == indexPath.section {
             let view = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
             view.channel = channel[indexPath.row]
+            if let displayname = UserDefaults.standard.string(forKey: "displayName"){
+                view.senderDisplayName = displayname
+            }else{
+                view.senderDisplayName = "Unknow"
+            }
             navigationController?.pushViewController(view, animated: true)
         }
     }
