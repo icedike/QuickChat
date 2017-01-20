@@ -45,4 +45,37 @@ extension ChatViewController{
         return nil
     }
     
+    //override this funciton to create the color for text
+    //get cell from parent's cell and return a new cell for another setting
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
+        let singleMessage = message[indexPath.item]
+        if singleMessage.senderId == senderId {
+            cell.textView.textColor = UIColor.white
+        }else{
+            cell.textView.textColor = UIColor.black
+        }
+        return cell
+    }
+    
+    //add message 
+    func addMessage(id:String, name:String, text:String){
+        if let newMessage = JSQMessage(senderId: id, displayName: name, text: text){
+            message.append(newMessage)
+        }
+    }
+    
+    //action press button to send message
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        if let okChannel = channel{
+        FireDatabaseAPI.default.wirteNewMessagetoChannel(channelID: okChannel.id, senderID: senderId, senderName: senderDisplayName, text: text)
+        //display sending sound
+        JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        //clear text field & look like to reload data
+        finishSendingMessage()
+        }else{
+            print("Don't get any channel")
+        }
+    }
+    
 }

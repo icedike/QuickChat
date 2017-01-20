@@ -32,15 +32,30 @@ final class ChatViewController: JSQMessagesViewController {
         return bubbleImageFactory!.incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
     }()
 
+    //DI injection -> for testing
+    var cloudDatabaseManger:CloudDatabaseAble = FireDatabaseAPI.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //get sender's unique id by get login uid
         self.senderId = FIRAuth.auth()?.currentUser?.uid
-        
-        //remove avatarview
+        //get sender's display from userdefault
+        if let okDisplayName = UserDefaults.standard.string(forKey: "displayName"){
+            self.senderDisplayName = okDisplayName
+        }
+        //remove avatar view
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
-        // Do any additional setup after loading the view.
+        
+        //let message to keep update
+        if let channelID = channel?.id {
+        cloudDatabaseManger.readMessageFromChannel(channelID: channelID, completion: {
+            (senderID, senderName, text) in
+            self.addMessage(id: senderID, name: senderName, text: text)
+            // tell JSQ there is new data to display
+            self.finishReceivingMessage()
+        })
+        }
     }
 
     override func didReceiveMemoryWarning() {
