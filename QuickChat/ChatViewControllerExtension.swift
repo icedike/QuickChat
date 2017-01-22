@@ -65,6 +65,14 @@ extension ChatViewController{
         }
     }
     
+    //handle when user input text
+    override func textViewDidChange(_ textView: UITextView) {
+        //? need?
+        super.textViewDidChange(textView)
+        // if text is not empty -> user enter some words
+        isTyping = (textView.text != "")
+    }
+    
     //action press button to send message
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         if let okChannel = channel{
@@ -73,6 +81,8 @@ extension ChatViewController{
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
         //clear text field & look like to reload data
         finishSendingMessage()
+        //set isTyping to false
+        isTyping = false
         }else{
             print("Don't get any channel")
         }

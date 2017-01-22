@@ -35,8 +35,23 @@ final class ChatViewController: JSQMessagesViewController {
     //DI injection -> for testing
     var cloudDatabaseManger:CloudDatabaseAble = FireDatabaseAPI.default
     
+    
+    var localIsTyping:Bool = false
+    
+    var isTyping:Bool{
+        get{
+            return localIsTyping
+        }
+        set(newValue){
+            // update to local and firebase
+            localIsTyping = newValue
+            cloudDatabaseManger.setIsTypingInChannel(channelID: (channel?.id)!, senderID: senderId, isTyping: newValue)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("view did load")
         //get sender's unique id by get login uid
         self.senderId = FIRAuth.auth()?.currentUser?.uid
         //get sender's display from userdefault
@@ -49,13 +64,39 @@ final class ChatViewController: JSQMessagesViewController {
         
         //let message to keep update
         if let channelID = channel?.id {
-        cloudDatabaseManger.readMessageFromChannel(channelID: channelID, completion: {
-            (senderID, senderName, text) in
-            self.addMessage(id: senderID, name: senderName, text: text)
-            // tell JSQ there is new data to display
-            self.finishReceivingMessage()
-        })
+            cloudDatabaseManger.readMessageFromChannel(channelID: channelID, completion: {
+                (senderID, senderName, text) in
+                self.addMessage(id: senderID, name: senderName, text: text)
+                // tell JSQ there is new data to display
+                self.finishReceivingMessage()
+            })
+            // set to remove isTyping value when user logged out
+            cloudDatabaseManger.setDoDisconnectRemoveIsTyping(channelID: channelID, senderID: senderId)
+            
+            // add observe to check whether other people were typing
+            cloudDatabaseManger.observeIsTypingInChannel(channelID: channelID, isTyping:{
+                //return isTyping status when observe get the update value
+                return self.isTyping
+            }, completion: { (isOtherTyping) in
+                
+                self.showTypingIndicator = isOtherTyping
+                self.scrollToBottom(animated: isOtherTyping)
+                
+            })
         }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("remove observe")
+        if let channelID = channel?.id{
+            cloudDatabaseManger.removeObserve()
+            cloudDatabaseManger.removeMessageObserve(channelID:channelID)
+        }
+    }
+    
+    deinit {
+        print("ChatViewController deinit")
     }
 
     override func didReceiveMemoryWarning() {

@@ -19,6 +19,12 @@ protocol CloudDatabaseAble {
     
     func readMessageFromChannel(channelID:String, completion:@escaping (String, String, String) -> Void)
     
+    func setIsTypingInChannel(channelID:String, senderID:String, isTyping: Bool)
+    
+    func setDoDisconnectRemoveIsTyping(channelID:String, senderID:String)
+    
+    func observeIsTypingInChannel(channelID:String, isTyping:@escaping () -> Bool, completion:@escaping (Bool) -> Void)
+    
     func removeObserve()
     
     func removeMessageObserve(channelID:String)
@@ -90,6 +96,33 @@ class FireDatabaseAPI:CloudDatabaseAble{
             }
         })
     }
+    
+    // set value for type or not in firebase
+    func setIsTypingInChannel(channelID:String, senderID:String, isTyping: Bool){
+        let isTypingRef = channelRef.child("\(channelID)/typingIndicator/\(senderID)")
+        isTypingRef.setValue(isTyping)
+    }
+    
+    // set remove isTyping data from firebase if user disconnect
+    func setDoDisconnectRemoveIsTyping(channelID:String, senderID:String){
+        let isTypingRef = channelRef.child("\(channelID)/typingIndicator/\(senderID)")
+        isTypingRef.onDisconnectRemoveValue()
+    }
+    
+    // add observe for other peoople typing
+    private var isTypingHandle:FIRDatabaseHandle?
+    func observeIsTypingInChannel(channelID:String, isTyping:@escaping () -> Bool, completion:@escaping (_ otherTyping:Bool) -> Void){
+        let isTypeingQueryRef = channelRef.child("\(channelID)/typingIndicator").queryOrderedByValue().queryEqual(toValue: true)
+        isTypingHandle = isTypeingQueryRef.observe(.value, with: {
+            (snapShot) in
+            if snapShot.childrenCount == 1 && isTyping() {
+                return
+            }
+            
+            completion(snapShot.childrenCount > 0)
+        })
+    }
+    
     // not every API would remove the observe
     // would not include in protocol
     // remove observe when view deinit
@@ -101,11 +134,15 @@ class FireDatabaseAPI:CloudDatabaseAble{
         }
     }
     
-    //remove message observe
+    //remove message observe & isTyping observe
     func removeMessageObserve(channelID:String){
         if let messageHandle = messageHandle{
             let messageRef = channelRef.child("\(channelID)/messages")
             messageRef.removeObserver(withHandle: messageHandle)
+        }
+        if let isTypingHandle = isTypingHandle{
+            let isTypeingQueryRef = channelRef.child("\(channelID)/typingIndicator")
+            isTypeingQueryRef.removeObserver(withHandle: isTypingHandle)
         }
     }
 }
