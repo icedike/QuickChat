@@ -64,14 +64,24 @@ final class ChatViewController: JSQMessagesViewController {
         
         //let message to keep update
         if let channelID = channel?.id {
+
+            // set to remove isTyping value when user logged out
+            cloudDatabaseManger.setDoDisconnectRemoveIsTyping(channelID: channelID, senderID: senderId)
+            
+
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //change from viewdid load to view will appear
+        if let channelID = channel?.id{
             cloudDatabaseManger.readMessageFromChannel(channelID: channelID, completion: {
                 (senderID, senderName, text) in
                 self.addMessage(id: senderID, name: senderName, text: text)
                 // tell JSQ there is new data to display
                 self.finishReceivingMessage()
             })
-            // set to remove isTyping value when user logged out
-            cloudDatabaseManger.setDoDisconnectRemoveIsTyping(channelID: channelID, senderID: senderId)
             
             // add observe to check whether other people were typing
             cloudDatabaseManger.observeIsTypingInChannel(channelID: channelID, isTyping:{
@@ -83,8 +93,8 @@ final class ChatViewController: JSQMessagesViewController {
                 self.scrollToBottom(animated: isOtherTyping)
                 
             })
+            
         }
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

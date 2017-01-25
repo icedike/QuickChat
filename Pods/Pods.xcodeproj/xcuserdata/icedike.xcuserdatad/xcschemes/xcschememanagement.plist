@@ -4,37 +4,37 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>GSMessages.xcscheme</key>
+		<key>GSMessages.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GTMSessionFetcher.xcscheme</key>
+		<key>GTMSessionFetcher.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleToolboxForMac.xcscheme</key>
+		<key>GoogleToolboxForMac.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>JSQMessagesViewController.xcscheme</key>
+		<key>JSQMessagesViewController.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>JSQSystemSoundPlayer.xcscheme</key>
+		<key>JSQSystemSoundPlayer.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-QuickChat.xcscheme</key>
+		<key>Pods-QuickChat.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SwiftyJSON.xcscheme</key>
+		<key>SwiftyJSON.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

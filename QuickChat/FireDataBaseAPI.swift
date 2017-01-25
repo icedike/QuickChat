@@ -140,6 +140,7 @@ class FireDatabaseAPI:CloudDatabaseAble{
             let messageRef = channelRef.child("\(channelID)/messages")
             messageRef.removeObserver(withHandle: messageHandle)
         }
+        //may not need this -> because typingIndicator would delete when user logout?
         if let isTypingHandle = isTypingHandle{
             let isTypeingQueryRef = channelRef.child("\(channelID)/typingIndicator")
             isTypeingQueryRef.removeObserver(withHandle: isTypingHandle)
