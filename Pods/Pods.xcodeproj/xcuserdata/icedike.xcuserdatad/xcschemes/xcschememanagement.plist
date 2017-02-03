@@ -4,37 +4,42 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>GSMessages.xcscheme_^#shared#^_</key>
+		<key>GSMessages.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GTMSessionFetcher.xcscheme_^#shared#^_</key>
+		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleToolboxForMac.xcscheme_^#shared#^_</key>
+		<key>GoogleToolboxForMac.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>JSQMessagesViewController.xcscheme_^#shared#^_</key>
+		<key>JSQMessagesViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>JSQSystemSoundPlayer.xcscheme_^#shared#^_</key>
+		<key>JSQSystemSoundPlayer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-QuickChat.xcscheme_^#shared#^_</key>
+		<key>Pods-QuickChat.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SwiftyJSON.xcscheme_^#shared#^_</key>
+		<key>SwiftGifOrigin.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,17 +47,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>046006133088F3F85C6437F9089515E7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>107A9565F9DF88517DFD3E28C05B2B96</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2C99DE5C8F9BD15DD5F93FB0609EAAB4</key>
+		<key>2E0F63A6094A7D0A5C8263827E1B712D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6E4C539D56CB6D0B006BA0DF190E7325</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -68,6 +73,11 @@
 			<true/>
 		</dict>
 		<key>C7DCF2B547F7871B9BFD74DE93B0E173</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CDD64DA03CCAD8305319A08F3113C1F7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

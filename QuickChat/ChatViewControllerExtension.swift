@@ -9,6 +9,8 @@
 
 import UIKit
 import JSQMessagesViewController
+import Photos
+import FirebaseStorage
 
 extension ChatViewController{
     
@@ -51,9 +53,9 @@ extension ChatViewController{
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
         let singleMessage = message[indexPath.item]
         if singleMessage.senderId == senderId {
-            cell.textView.textColor = UIColor.white
+            cell.textView?.textColor = UIColor.white
         }else{
-            cell.textView.textColor = UIColor.black
+            cell.textView?.textColor = UIColor.black
         }
         return cell
     }
@@ -62,6 +64,37 @@ extension ChatViewController{
     func addMessage(id:String, name:String, text:String){
         if let newMessage = JSQMessage(senderId: id, displayName: name, text: text){
             message.append(newMessage)
+        }
+    }
+    
+    //add photo message
+    func addPhotoMessage(id: String, name: String, mediaItem: JSQPhotoMediaItem, key: String){
+        if let newPhotoMessage = JSQMessage(senderId: id, displayName: name, media: mediaItem){
+            message.append(newPhotoMessage)
+            
+            // save meditaItem for updating image later
+            if mediaItem.image == nil {
+                photoMessageMap[key] = mediaItem
+            }
+            
+            collectionView.reloadData()
+        }
+    }
+    
+    // fetch image from URL
+    func fetchImageAtURL(_ photoURL: String,
+                         forMediaItem mediaItem: JSQPhotoMediaItem,
+                         clearPhotoMessageMapKey key: String){
+        //check whether is a valid url 
+        if photoURL.hasPrefix("gs://"){
+            cloudDatabaseManger.getImageAtStroageURL(photoURL) { (newImage) in
+                mediaItem.image = newImage
+                // reload data after geting new image
+                self.collectionView.reloadData()
+                // remove the photoMessage data
+                self.photoMessageMap.removeValue(forKey: key)
+            }
+
         }
     }
     
@@ -76,7 +109,7 @@ extension ChatViewController{
     //action press button to send message
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         if let okChannel = channel{
-        FireDatabaseAPI.default.wirteNewMessagetoChannel(channelID: okChannel.id, senderID: senderId, senderName: senderDisplayName, text: text)
+        cloudDatabaseManger.wirteNewMessagetoChannel(channelID: okChannel.id, senderID: senderId, senderName: senderDisplayName, text: text)
         //display sending sound
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
         //clear text field & look like to reload data
@@ -88,4 +121,76 @@ extension ChatViewController{
         }
     }
     
+    // press add picture button
+    override func didPressAccessoryButton(_ sender: UIButton!) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
+            picker.sourceType = .camera
+        }else{
+            picker.sourceType = .photoLibrary
+        }
+        present(picker, animated: true, completion: nil)
+    }
+}
+
+extension ChatViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        // get photo url if the photo from photoalbum
+        if let photoRefenenceURL = info[UIImagePickerControllerReferenceURL] as? URL {
+            let assets = PHAsset.fetchAssets(withALAssetURLs: [photoRefenenceURL], options: nil)
+            let asset = assets.firstObject
+            print("photoRefenceURL:\(photoRefenenceURL)")
+            
+            if let channelID = channel?.id{
+                let key = cloudDatabaseManger.setInitialPhotoURL(channelID: channelID, senderID: senderId)
+                JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                finishSendingMessage()
+                asset?.requestContentEditingInput(with: nil, completionHandler: { (contentEditingInput, info) in
+                    let imageFileURL = contentEditingInput?.fullSizeImageURL
+                    print("imageFileURL:\(imageFileURL)")
+                    
+                    let path = "\(self.senderId)/\(Int(Date.timeIntervalSinceReferenceDate * 1000))/\(photoRefenenceURL.lastPathComponent)"
+                    
+                    self.cloudDatabaseManger.savePhotoToStorage(path: path, imageFileURL: imageFileURL!, completion: { (metaData, error) in
+                        if error != nil {
+                            print("Error uploading photo:\(error?.localizedDescription)")
+                            return
+                        }
+                        self.cloudDatabaseManger.updatePhotoURL(channelID: channelID, key: key, metaData: metaData)
+                    })
+                    
+                })
+            }
+        }else{
+            // a photo from camera
+            print("choose photo from the camera ")
+            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            if let channelID = channel?.id{
+                let key = cloudDatabaseManger.setInitialPhotoURL(channelID: channelID, senderID: senderId)
+                JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                finishSendingMessage()
+                //compress image size
+                let imageData = UIImageJPEGRepresentation(image, 0.5)
+                let imagePath = "\(senderId!)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+                print("imagePath:\(imagePath)")
+                cloudDatabaseManger.savePotoToStorageFromCamera(path: imagePath, imageData: imageData){
+                    (metaData, error) in
+                    if error != nil {
+                        print("Error uploading photo:\(error?.localizedDescription)")
+                        return
+                    }
+                    self.cloudDatabaseManger.updatePhotoURL(channelID: channelID, key: key, metaData: metaData)
+                }
+                
+            }
+        }
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

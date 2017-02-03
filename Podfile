@@ -12,4 +12,5 @@ target 'QuickChat' do
   pod 'JSQMessagesViewController'
   pod 'GSMessages'
   pod 'SwiftyJSON'
+  pod 'SwiftGifOrigin'
 end

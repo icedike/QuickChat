@@ -6,9 +6,12 @@
 //  Copyright © 2017 MarkRobotDesign. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import FirebaseDatabase
+import FirebaseStorage
 import SwiftyJSON
+import JSQMessagesViewController
+import SwiftGifOrigin
 
 protocol CloudDatabaseAble {
     func wirteNewChannelToCloud(name:String)
@@ -17,13 +20,23 @@ protocol CloudDatabaseAble {
     
     func readFromCloud(readHandler:@escaping (Channel) -> Void)
     
-    func readMessageFromChannel(channelID:String, completion:@escaping (String, String, String) -> Void)
+    func readMessageFromChannel(channelID:String, completion:@escaping (String, String, String) -> Void, completionForImage:@escaping (_ senderId: String, _ imageURL: String, _ key: String) -> Void)
     
     func setIsTypingInChannel(channelID:String, senderID:String, isTyping: Bool)
     
     func setDoDisconnectRemoveIsTyping(channelID:String, senderID:String)
     
     func observeIsTypingInChannel(channelID:String, isTyping:@escaping () -> Bool, completion:@escaping (Bool) -> Void)
+    
+    func savePhotoToStorage(path:String, imageFileURL:URL, completion:@escaping (FIRStorageMetadata?, Error?) -> Void)
+    
+    func savePotoToStorageFromCamera(path:String, imageData:Data?, completion:@escaping (FIRStorageMetadata?, Error?) -> Void)
+    
+    func setInitialPhotoURL(channelID:String, senderID:String) -> String
+    
+    func updatePhotoURL(channelID:String, key:String, metaData:FIRStorageMetadata?)
+    
+    func getImageAtStroageURL(_ photoURL: String, completion: @escaping (UIImage?) -> Void)
     
     func removeObserve()
     
@@ -40,6 +53,8 @@ class FireDatabaseAPI:CloudDatabaseAble{
     static let `default` = FireDatabaseAPI()
     
     private lazy var channelRef:FIRDatabaseReference = FIRDatabase.database().reference().child("channels")
+    
+    private lazy var storageRef:FIRStorageReference = FIRStorage.storage().reference(forURL: "gs://quickchat-96266.appspot.com")
     
     
     // write a channel to firebase API
@@ -79,8 +94,9 @@ class FireDatabaseAPI:CloudDatabaseAble{
     }
     
     private var messageHandle:FIRDatabaseHandle?
+    private var updateMessageHandle:FIRDatabaseHandle?
     //read a message from channel
-    func readMessageFromChannel(channelID:String, completion:@escaping (_ senderID:String, _ senderName:String,_ text:String) -> Void){
+    func readMessageFromChannel(channelID: String, completion:@escaping (_ senderID: String, _ senderName:String,_ text: String) -> Void, completionForImage:@escaping (_ senderId: String, _ imageURL: String, _ key: String) -> Void){
         print("read message form channle in the cloud")
         let messageRef = channelRef.child("\(channelID)/messages")
         //limit the number message we need to read
@@ -90,11 +106,30 @@ class FireDatabaseAPI:CloudDatabaseAble{
             let messageJSONData = JSON(snapShot.value!)
             
             if let senderID = messageJSONData["senderID"].string,  let senderName = messageJSONData["senderName"].string, let text = messageJSONData["text"].string, !text.isEmpty {
+                //text message
                 completion(senderID, senderName, text)
+            }else if let senderIDFormImage = messageJSONData["senderID"].string, let photoURL = messageJSONData["photoURL"].string{
+                // photo message
+                completionForImage(senderIDFormImage, photoURL, snapShot.key)
+                
             }else{
                 print("fail to get the message from channel")
             }
         })
+        
+        // get update photoimage URL
+        updateMessageHandle = messageRefQuery.observe(.childChanged, with: {
+            (snapShot) in
+            let messageJSONData = JSON(snapShot.value!)
+            if let senderIDFormImage = messageJSONData["senderID"].string, let photoURL = messageJSONData["photoURL"].string{
+                // photo message
+                completionForImage(senderIDFormImage, photoURL, snapShot.key)
+                
+            }else{
+                print("fail to get the updating image url")
+            }
+        })
+        
     }
     
     // set value for type or not in firebase
@@ -123,6 +158,68 @@ class FireDatabaseAPI:CloudDatabaseAble{
         })
     }
     
+    // save image to firebase storage
+    func savePhotoToStorage(path:String, imageFileURL:URL, completion:@escaping (FIRStorageMetadata?, Error?) -> Void){
+        storageRef.child(path).putFile(imageFileURL, metadata: nil) { (metadata, error) in
+            completion(metadata, error)
+        }
+    }
+    
+    // save image to firebase storage from camera
+    func savePotoToStorageFromCamera(path:String, imageData:Data?, completion:@escaping (FIRStorageMetadata?, Error?) -> Void){
+        let metaData = FIRStorageMetadata()
+        metaData.contentType = "image/jpeg"
+        storageRef.child(path).put(imageData!, metadata: metaData) { (metadata, error) in
+            completion(metadata, error)
+        }
+    }
+    
+    // will update photoURL after receiving the URL from firebaseStorage
+    func setInitialPhotoURL(channelID:String, senderID:String) -> String {
+        let photoRef = channelRef.child("\(channelID)/messages").childByAutoId()
+        let photoItem = [
+            "photoURL": "NOTSET",
+            "senderID":senderID
+        ]
+        photoRef.setValue(photoItem)
+        
+        return photoRef.key
+    }
+    
+    //update photoURL
+    func updatePhotoURL(channelID:String, key:String, metaData:FIRStorageMetadata?){
+        let photoRef = channelRef.child("\(channelID)/messages/\(key)")
+        let validURL = storageRef.child((metaData?.path)!).description
+        photoRef.updateChildValues(["photoURL":validURL])
+    }
+
+    //get image by url
+    func getImageAtStroageURL(_ photoURL: String, completion: @escaping (UIImage?) -> Void){
+        let imageStorageRef = FIRStorage.storage().reference(forURL: photoURL)
+        
+        imageStorageRef.data(withMaxSize: INT64_MAX) { (data, error) in
+            if let error = error {
+                print("fail to get the iamge from the storage with url:\(error.localizedDescription)")
+                return
+            }
+            
+            imageStorageRef.metadata(completion: { (metadata, metadataError) in
+                if let error = metadataError {
+                    print("faile to gee metadata \(error.localizedDescription)")
+                    return
+                }
+                
+                let newImage:UIImage?
+                if metadata?.contentType == "image/gif" {
+                    newImage = UIImage.gif(data: data!)
+                }else{
+                    newImage = UIImage.init(data: data!)
+                }
+                completion(newImage)
+            })
+        }
+    }
+    
     // not every API would remove the observe
     // would not include in protocol
     // remove observe when view deinit
@@ -140,10 +237,17 @@ class FireDatabaseAPI:CloudDatabaseAble{
             let messageRef = channelRef.child("\(channelID)/messages")
             messageRef.removeObserver(withHandle: messageHandle)
         }
+        
+        if let updateMessageHandle = updateMessageHandle{
+        let updateMessageRef = channelRef.child("\(channelID)/messages")
+            updateMessageRef.removeObserver(withHandle: updateMessageHandle)
+        }
+        
         //may not need this -> because typingIndicator would delete when user logout?
         if let isTypingHandle = isTypingHandle{
             let isTypeingQueryRef = channelRef.child("\(channelID)/typingIndicator")
             isTypeingQueryRef.removeObserver(withHandle: isTypingHandle)
         }
+        
     }
 }

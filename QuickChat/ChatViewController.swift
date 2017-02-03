@@ -49,6 +49,8 @@ final class ChatViewController: JSQMessagesViewController {
         }
     }
     
+    var photoMessageMap: [String:JSQPhotoMediaItem] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("view did load")
@@ -68,19 +70,26 @@ final class ChatViewController: JSQMessagesViewController {
             // set to remove isTyping value when user logged out
             cloudDatabaseManger.setDoDisconnectRemoveIsTyping(channelID: channelID, senderID: senderId)
             
-
-        }
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //change from viewdid load to view will appear
-        if let channelID = channel?.id{
             cloudDatabaseManger.readMessageFromChannel(channelID: channelID, completion: {
                 (senderID, senderName, text) in
                 self.addMessage(id: senderID, name: senderName, text: text)
                 // tell JSQ there is new data to display
                 self.finishReceivingMessage()
+            }, completionForImage: {
+                //get the photo message
+                (senderID, photoURL, key) in
+                
+                //check if there was any mediaItem saving in local and wait to update
+                if let mediaItem = self.photoMessageMap[key] {
+                    print("update:key = \(key)")
+                    self.fetchImageAtURL(photoURL, forMediaItem: mediaItem, clearPhotoMessageMapKey: key)
+                }else if let mediaItem = JSQPhotoMediaItem(maskAsOutgoing: senderID == self.senderId) {
+                    print("new key = \(key)")
+                    self.addPhotoMessage(id: senderID, name: "", mediaItem: mediaItem, key: key)
+                    self.fetchImageAtURL(photoURL, forMediaItem: mediaItem, clearPhotoMessageMapKey: key)
+                }else{
+                    print("fail to save or update mediaItem")
+                }
             })
             
             // add observe to check whether other people were typing
@@ -94,17 +103,24 @@ final class ChatViewController: JSQMessagesViewController {
                 
             })
             
+            
+
         }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("remove observe")
-        if let channelID = channel?.id{
-            cloudDatabaseManger.removeObserve()
-            cloudDatabaseManger.removeMessageObserve(channelID:channelID)
+        
+        super.viewWillDisappear(animated)
+        if self.isMovingFromParentViewController{
+            print("remove observe")
+            if let channelID = channel?.id{
+                cloudDatabaseManger.removeObserve()
+                cloudDatabaseManger.removeMessageObserve(channelID:channelID)
+            }
         }
     }
-    
+
     deinit {
         print("ChatViewController deinit")
     }
