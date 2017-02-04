@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "046006133088F3F85C6437F9089515E7"
+               BlueprintIdentifier = "6E4C539D56CB6D0B006BA0DF190E7325"
                BuildableName = "Pods_QuickChat.framework"
                BlueprintName = "Pods-QuickChat"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">

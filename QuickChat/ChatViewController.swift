@@ -112,6 +112,7 @@ final class ChatViewController: JSQMessagesViewController {
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
+        // available when current view end
         if self.isMovingFromParentViewController{
             print("remove observe")
             if let channelID = channel?.id{
