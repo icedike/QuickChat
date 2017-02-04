@@ -60,6 +60,11 @@ extension ChatViewController{
         return cell
     }
     
+    //parepare to add the complain 
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
+        print("hey you tap the message")
+    }
+    
     //add message 
     func addMessage(id:String, name:String, text:String){
         if let newMessage = JSQMessage(senderId: id, displayName: name, text: text){
